@@ -5,21 +5,35 @@ var questions = [
         answer: "Hypertext Markup Language",
     },
     {
-        question: "questions #2",
-        choices: ["Java", "Ruby", "Python", "Javascript"],
-        answer: "Javascript",
+        question: "What brakets do you use for an array?",
+        choices: ["() ", "{}", "[]", "<>"],
+        answer: "[]",
     },
     {
-        question: "questions #3",
-        choices: ["Java", "Ruby", "Python", "Javascript"],
-        answer: "Javascript",
+        question: "Which one is not a main language in web development?",
+        choices: ["HTML", "CSS", "PHP", "Javascript"],
+        answer: "PHP",
     },
     {
-        question: "questions #4",
-        choices: ["Java", "Ruby", "Python", "Javascript"],
-        answer: "Javascript",
+        question: "What is an API?",
+        choices: ["Application Programming Interface", "Apple Pie Intervention", "Application Progress Interface", "Advanced Processing Information"],
+        answer: "Application Programming Interface",
     },
-
+    {
+        question: "Inside which HTML element do we put the JavaScript?",
+        choices: ["<scripting>", "<js>", "<javascript>", "<script>"],
+        answer: "<script>",
+    },
+    {
+        question: "How do you round the number 7.25, to the nearest integer?",
+        choices: ["Math.rnd(7.25)", "round(7.25)", "Math.round(7.25)", "rnd(7.25)"],
+        answer: "Math.round(7.25)",
+    },
+    {
+        question: "How does a FOR loop start?",
+        choices: ["for (i = 0; i <+5)", "for (i <+5; i++)", "for i = 1 to 5", "for (i = 0; i <= 5; i++)"],
+        answer: "for (i = 0; i <= 5; i++)",
+    },
 ]
 
 
