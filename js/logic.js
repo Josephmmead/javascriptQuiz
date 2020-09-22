@@ -38,32 +38,47 @@ var questions = [
 
 
 var currentQuestionIndex = 0;
-var timer = $("#time");
-var score = 0;
+let timer = 70;
+let score = 0;
 var currentAnswer = questions[currentQuestionIndex].answer;
 let selection;
+var gameOver = false;
 
 
 
+// Onclick for the start button
 $("#start").on("click", function(){
     startQuiz();   
+
+    var countdownTimer = setInterval(function(){
+        timer--;
+        console.log(timer);
+        document.getElementById("time").textContent = timer;
+        if(timer <= 0 || gameOver)
+            clearInterval(countdownTimer);
+            endGame();
+        },1000);
 });
 
 function startQuiz() {
     var startScreenEl = document.getElementById("startScreen");
-    // hide start screen once start button is clicked
-    
-    startScreenEl.classList.add('hide');
 
-    // start timer upon clicking "Start Quiz"
+
+    // hide start screen once start button is clicked
+    startScreenEl.classList.add('hide');
+    
 
     getQuestion();
-   
-};
+
+    };
+
+
 
 function getQuestion() {
+
     $('#questionHeader').empty();
     $('#choices').empty();
+    
 
     var currentQuestion = questions[currentQuestionIndex].question;
     var currentChoices = questions[currentQuestionIndex].choices;
@@ -75,6 +90,8 @@ function getQuestion() {
     var choicesElement = document.getElementById("choices");
     
     
+
+
    for( i = 0; i < currentChoices.length; i++) {
     var choiceSelection = document.createElement("button");
         choiceSelection.setAttribute("class", "choice-btn");
@@ -87,17 +104,19 @@ function getQuestion() {
         choicesElement.appendChild(choiceSelection);
         
     };
+
     headerElement.append(currentQuestion);
     
     
 };
-// $(document).on()"click",".end-btn", function(){
+
 
 $(document).on("click",".choice-btn", function(){
     selection = this.value;
-
+    endGame();
     if (selection !== currentAnswer) {
         alert("Wrong");
+        timer -= 5;
         currentQuestionIndex= currentQuestionIndex + 1;
         getQuestion();
         
@@ -107,4 +126,17 @@ $(document).on("click",".choice-btn", function(){
         currentQuestionIndex= currentQuestionIndex + 1;
         getQuestion(); };
 
+
 });
+
+
+function endGame(){
+if(currentQuestionIndex >= questions.length - 1|| timer <= 0){
+    console.log("this worked");
+    $("#questions").addClass("hide");
+    $("#endScreen").removeClass("hide");
+   
+    $("#final-score").text(score + timer);
+    gameOver = true;
+};
+};
