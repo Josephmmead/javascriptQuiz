@@ -165,6 +165,6 @@ $("#submit").on("click", function(){
         return `<li class="list-group-item">${user.player}-${user.userscore}</li>`
     }).join("");
     userscoreList.append("Your score: " + playerName + "-" + currentScore)
-
+// wasnt quite able to figure this out.... 
 });
 
