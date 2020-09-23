@@ -39,10 +39,12 @@ var questions = [
 
 var currentQuestionIndex = 0;
 let timer = 70;
-let score = 0;
+let score = 0 ;
 var currentAnswer = questions[currentQuestionIndex].answer;
 let selection;
+
 var gameOver = false;
+
 
 
 
@@ -51,12 +53,11 @@ $("#start").on("click", function(){
     startQuiz();   
 
     var countdownTimer = setInterval(function(){
-        timer--;
-        console.log(timer);
-        document.getElementById("time").textContent = timer;
+        endGame();
         if(timer <= 0 || gameOver)
-            clearInterval(countdownTimer);
-            endGame();
+            clearInterval(countdownTimer);  
+        timer--;
+        document.getElementById("time").textContent = timer;
         },1000);
 });
 
@@ -83,15 +84,10 @@ function getQuestion() {
     var currentQuestion = questions[currentQuestionIndex].question;
     var currentChoices = questions[currentQuestionIndex].choices;
     currentAnswer = questions[currentQuestionIndex].answer
-
     var headerElement = document.getElementById("questionHeader");
     headerElement.textContent = currentQuestion.question;
-
     var choicesElement = document.getElementById("choices");
     
-    
-
-
    for( i = 0; i < currentChoices.length; i++) {
     var choiceSelection = document.createElement("button");
         choiceSelection.setAttribute("class", "choice-btn");
@@ -99,44 +95,63 @@ function getQuestion() {
 
         choiceSelection.textContent = i + 1 + ". " + currentChoices[i];
 
-        
-
         choicesElement.appendChild(choiceSelection);
         
     };
 
     headerElement.append(currentQuestion);
     
-    
 };
 
 
 $(document).on("click",".choice-btn", function(){
     selection = this.value;
-    endGame();
+    
     if (selection !== currentAnswer) {
         alert("Wrong");
         timer -= 5;
         currentQuestionIndex= currentQuestionIndex + 1;
+        endGame();
         getQuestion();
         
     } else {
-        score = score + 10;
-        alert("Correct! Your current score is " +score)
+         score = score + 10;
+        alert("Correct! Your current score is " + score);
         currentQuestionIndex= currentQuestionIndex + 1;
         getQuestion(); };
-
-
 });
 
-
 function endGame(){
-if(currentQuestionIndex >= questions.length - 1|| timer <= 0){
-    console.log("this worked");
+if(currentQuestionIndex >= questions.length || timer <= 0){
+    
     $("#questions").addClass("hide");
     $("#endScreen").removeClass("hide");
    
-    $("#final-score").text(score + timer);
+    $("#final-score").text(score);
     gameOver = true;
+    };
 };
-};
+
+
+
+
+
+
+$("#submit").on("click", function(){
+
+    let initials = $("#initials").val();
+    var user = {
+        Player: initials,
+        Highscore: score,
+    };
+
+
+    if (initials === ""){
+        alert("Please enter your initials.")
+    }else {
+        alert("Your score has been logged.")
+        localStorage.setItem("user", user);
+    };
+    console.log(user);
+});
+

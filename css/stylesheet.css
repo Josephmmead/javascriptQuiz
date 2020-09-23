@@ -8,7 +8,7 @@
 }
 
 #startScreen, #questions,
- #endScreen{
+ #endScreen, #scoreLimit{
 
     justify-content: center;
     text-align: center;
@@ -18,7 +18,10 @@
     width: 70%;   
 };
 
-
+#choices{
+    padding:10px;
+    
+}
 
 #highScore{
     float: left;
