@@ -133,25 +133,38 @@ if(currentQuestionIndex >= questions.length || timer <= 0){
 };
 
 
-
-
-
-
 $("#submit").on("click", function(){
 
+    event.preventDefault();
+
     let initials = $("#initials").val();
-    var user = {
-        Player: initials,
-        Highscore: score,
+    let user = {
+        player: initials,
+        highscore: score,
     };
 
+    var userscore = JSON.parse(window.localStorage.getItem("userscore")) || [];
 
+    
     if (initials === ""){
         alert("Please enter your initials.")
     }else {
         alert("Your score has been logged.")
-        localStorage.setItem("user", user);
-    };
-    console.log(user);
+        userscore.push(user);
+        localStorage.setItem(userscore, JSON.stringify("userscore"));
+        $("#random").text("username: " + user.player + " userscore: " + score);
+    };  
+    
+
+    userscore.sort((a,b) => b.score - a.score)
+
+    var array = userscore.splice(0,5);
+    let userscoreList = $("#list");
+    userscore.push("random", JSON.stringify(userscore));
+    userscoreList.innerHTML= array.map(user => {
+        return `<li class="list-group-item">${user.player}-${user.userscore}</li>`
+    }).join("");
+    userscoreList.append("Your score: " + playerName + "-" + currentScore)
+
 });
 
